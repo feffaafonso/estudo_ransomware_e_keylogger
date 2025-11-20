@@ -75,7 +75,7 @@ def main():
 if __name__ == "__main__":
     main()
 ```
-    -----------------------------------------
+
     
 ## Malware - Ransomware: Descriptografar ##
 
@@ -113,7 +113,8 @@ def main():
 if __name__ == "__main__":
     main()
 ```
-    --------------------------------------
+
+
 
 ## Malware - Keylogger: ##
 
@@ -130,7 +131,6 @@ Instalar a lib (biblioteca) no VSCode:
 
 *No WINDOWS, para ficar invisível, apenas precisamos renomear o arquivo com a extensão .pyw (Exemplo: keylogger.pyw)
 
-> * CÓDIGO: * <
 
 ```
 from pynput import keyboard
@@ -179,7 +179,6 @@ EXEMPLO: keylogger.pyw
 
 Dessa forma, fica em modo FURTIVO sem a necessidade de Terminal aberto.
     
-    ==========================================
 
     
 *KEYLOGGER E-MAIL > Registra tudo o que é digitado na máquina da vítima e envia automaticamente para o email informado do atacante.
