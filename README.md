@@ -68,11 +68,26 @@ def main():
     print("RAMSOMWARE EXECUTADO! ARQUIVOS CRIPTOGRAFADOS!")
 
 
+if __name__ == "__main__":
+    main()
 
+    -----------------------------------------
 
 ## Malware - Keylogger: ##
 
-if __name__ == "__main__":
-    main()
+> KEYLOGGER > Registra tudo o que é digitado na máquina da vítima.
+
+Instalar a lib (biblioteca) no VSCode:
+
+> pip install pynput
+
+1- Fica em execução em segundo plano; 
+2- Sempre que for digitada uma tecla pelo usuário, o programa captura a tecla; 
+3- O que for digitado será gravado em um arquivo .txt; 
+4- O arquivo vai mostrar tudo o que foi digitado e de forma sequencial.
+
+***No WINDOWS, para ficar invisível, apenas precisamos renomear o arquivo com a extensão .pyw (Exemplo: keylogger.pyw)
+
+Dessa forma, fica em modo FURTIVO sem a necessidade de Terminal aberto.
     
     ==========================================
