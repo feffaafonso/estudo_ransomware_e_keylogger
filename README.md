@@ -1,4 +1,4 @@
-# ESTUDO RANSOMWARE E KEYLOGGER
+# ESTUDO RANSOMWARE & KEYLOGGER
 Aprendizagem sobre o funcionamento de um ransomware e keyloggers
 
 
